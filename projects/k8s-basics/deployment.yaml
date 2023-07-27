@@ -7,9 +7,6 @@ metadata:
   annotations:
 spec:
   replicas: 2
-  selector:
-    matchLabels:
-      app: golang-app
   template:
     metadata:
       labels:
@@ -34,3 +31,10 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+         volumeMouts:
+         -  name: config-volume
+            mountPath: /configs/
+       volumes:
+         - name: config-volume
+           configMap:
+             name: golang-config #name of our configmap object
