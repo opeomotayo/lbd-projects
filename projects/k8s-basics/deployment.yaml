@@ -32,8 +32,8 @@ spec:
             memory: "256Mi"
             cpu: "500m"
         volumeMouts:
-        -  name: config-volume
-            mountPath: /configs/
+        - name: config-volume
+          mountPath: /configs/
       volumes:
       - name: config-volume
         configMap:
