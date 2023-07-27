@@ -37,7 +37,12 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /configs/
+        - name: secret-volume
+          mountPath: /secrets/
       volumes:
       - name: config-volume
         configMap:
-          name: golang-config #name of our configmap object
+          name: golang-config
+      - name: secret-volume
+        configMap:
+          name: secret-config
