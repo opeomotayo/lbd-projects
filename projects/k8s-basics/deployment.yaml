@@ -44,5 +44,5 @@ spec:
         configMap:
           name: golang-config
       - name: secret-volume
-        configMap:
+        secret:
           name: golang-secret
