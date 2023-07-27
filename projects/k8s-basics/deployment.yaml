@@ -1,19 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-deploy
+  name: golang-deploy
   labels:
-    app: example-app
+    app: golang-app
   annotations:
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: golang-app
   template:
     metadata:
       labels:
-        app: example-app
+        app: golang-app
     spec:
       containers:
-      - name: example-app
+      - name: golang-app
         image: aimvector/golang:1.0.0
         imagePullPolicy: Always
         ports:
