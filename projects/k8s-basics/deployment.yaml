@@ -31,10 +31,10 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-         volumeMouts:
-         -  name: config-volume
+        volumeMouts:
+        -  name: config-volume
             mountPath: /configs/
-       volumes:
-         - name: config-volume
-           configMap:
-             name: golang-config #name of our configmap object
+      volumes:
+      - name: config-volume
+        configMap:
+          name: golang-config #name of our configmap object
