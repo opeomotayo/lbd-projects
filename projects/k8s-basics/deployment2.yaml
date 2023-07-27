@@ -5,7 +5,10 @@ metadata:
   name: example-deploy
   labels:
     app: example-app
+    test: test
   annotations:
+    fluxcd.io/tag.example-app: semver:~1.0
+    fluxcd.io/automated: 'true'
 spec:
   selector:
     matchLabels:
@@ -23,16 +26,16 @@ spec:
     spec:
       containers:
       - name: example-app
-        image: aimvector/golang:1.0.0
+        image: aimvector/golang:1.0.0 #aimvector/python:1.0.4
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        livenessProbe:
-          httpGet:
-            path: /status
-            port: 5000
-          initialDelaySeconds: 3
-          periodSeconds: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
         resources:
           requests:
             memory: "64Mi"
@@ -40,10 +43,10 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-      # tolerations:
-      # - key: "cattle.io/os"
-      #   value: "linux"
-      #   effect: "NoSchedule"      
+      tolerations:
+      - key: "cattle.io/os"
+        value: "linux"
+        effect: "NoSchedule"      
 #NOTE: comment out `volumeMounts` section for configmap and\or secret guide
         # volumeMounts:
         # - name: secret-volume
