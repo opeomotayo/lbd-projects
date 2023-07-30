@@ -33,7 +33,7 @@ spec:
           path: /convert
       conversionReviewVersions:
       - v1
-      - v1beta1
+      - v1
   group: cert-manager.io
   names:
     kind: CertificateRequest
@@ -444,7 +444,7 @@ spec:
       jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1beta1
+    name: v1
     schema:
       openAPIV3Schema:
         description: "A CertificateRequest is used to request a signed certificate
@@ -838,7 +838,7 @@ spec:
           path: /convert
       conversionReviewVersions:
       - v1
-      - v1beta1
+      - v1
   group: cert-manager.io
   names:
     kind: Certificate
@@ -1687,7 +1687,7 @@ spec:
       jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1beta1
+    name: v1
     schema:
       openAPIV3Schema:
         description: "A Certificate resource should be created to ensure an up to
@@ -2511,7 +2511,7 @@ spec:
           path: /convert
       conversionReviewVersions:
       - v1
-      - v1beta1
+      - v1
   group: acme.cert-manager.io
   names:
     kind: Challenge
@@ -5532,7 +5532,7 @@ spec:
       jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1beta1
+    name: v1
     schema:
       openAPIV3Schema:
         description: Challenge is a type to represent a Challenge request with an
@@ -8536,7 +8536,7 @@ spec:
           path: /convert
       conversionReviewVersions:
       - v1
-      - v1beta1
+      - v1
   group: cert-manager.io
   names:
     kind: ClusterIssuer
@@ -12504,7 +12504,7 @@ spec:
       jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1beta1
+    name: v1
     schema:
       openAPIV3Schema:
         description: A ClusterIssuer represents a certificate issuing authority which
@@ -16465,7 +16465,7 @@ spec:
           path: /convert
       conversionReviewVersions:
       - v1
-      - v1beta1
+      - v1
   group: cert-manager.io
   names:
     kind: Issuer
@@ -20431,7 +20431,7 @@ spec:
       jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1beta1
+    name: v1
     schema:
       openAPIV3Schema:
         description: An Issuer represents a certificate issuing authority which can
@@ -24390,7 +24390,7 @@ spec:
           path: /convert
       conversionReviewVersions:
       - v1
-      - v1beta1
+      - v1
   group: acme.cert-manager.io
   names:
     kind: Order
@@ -24834,7 +24834,7 @@ spec:
       jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1beta1
+    name: v1
     schema:
       openAPIV3Schema:
         description: Order is a type to represent an Order with an ACME server
@@ -26243,7 +26243,7 @@ metadata:
 webhooks:
 - admissionReviewVersions:
   - v1
-  - v1beta1
+  - v1
   clientConfig:
     service:
       name: cert-manager-webhook
@@ -26278,7 +26278,7 @@ metadata:
 webhooks:
 - admissionReviewVersions:
   - v1
-  - v1beta1
+  - v1
   clientConfig:
     service:
       name: cert-manager-webhook

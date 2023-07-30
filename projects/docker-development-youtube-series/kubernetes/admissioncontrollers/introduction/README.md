@@ -396,12 +396,12 @@ So lets grab the info from the admission request, so we can do something with it
 
 ```
   //dependencies 
-  "k8s.io/api/admission/v1beta1"
+  "k8s.io/api/admission/v1"
   "errors"
 
   //HandleMutate()
 
-  var admissionReviewReq v1beta1.AdmissionReview
+  var admissionReviewReq v1.AdmissionReview
 
 	if _, _, err := universalDeserializer.Decode(body, nil, &admissionReviewReq); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -484,8 +484,8 @@ Once you have completed all your patching, convert the patches to byte slice:
 Add it to the admission response
 
 ```
-  admissionReviewResponse := v1beta1.AdmissionReview{
-      Response: &v1beta1.AdmissionResponse{
+  admissionReviewResponse := v1.AdmissionReview{
+      Response: &v1.AdmissionResponse{
         UID: admissionReviewReq.Request.UID,
         Allowed: true,
       },

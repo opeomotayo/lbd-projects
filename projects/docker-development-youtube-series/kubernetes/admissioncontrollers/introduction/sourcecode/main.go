@@ -18,7 +18,7 @@ import (
 	"strconv"
 	"io/ioutil"
 
-	"k8s.io/api/admission/v1beta1"
+	"k8s.io/api/admission/v1"
   "errors"
 
 	apiv1 "k8s.io/api/core/v1"
@@ -108,7 +108,7 @@ func HandleMutate(w http.ResponseWriter, r *http.Request){
 		panic(err.Error())
 	}
 
-	var admissionReviewReq v1beta1.AdmissionReview
+	var admissionReviewReq v1.AdmissionReview
 
 	if _, _, err := universalDeserializer.Decode(body, nil, &admissionReviewReq); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -150,8 +150,8 @@ func HandleMutate(w http.ResponseWriter, r *http.Request){
 	}
 
 
-	admissionReviewResponse := v1beta1.AdmissionReview{
-      Response: &v1beta1.AdmissionResponse{
+	admissionReviewResponse := v1.AdmissionReview{
+      Response: &v1.AdmissionResponse{
         UID: admissionReviewReq.Request.UID,
         Allowed: true,
       },

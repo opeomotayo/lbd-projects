@@ -1,7 +1,7 @@
 # {{- if .Values.server.ingress.enabled -}}
 # {{- $serviceName := include "vault.fullname" . -}}
 # {{- $servicePort := .Values.server.service.port -}}
-# apiVersion: extensions/v1beta1
+# apiVersion: extensions/v1
 # kind: Ingress
 # metadata:
 #   name: {{ template "vault.fullname" . }}
