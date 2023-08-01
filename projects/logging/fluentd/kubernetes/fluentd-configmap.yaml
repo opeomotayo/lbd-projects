@@ -12,7 +12,7 @@ data:
     @include pods-kind-fluent.conf
     #@include pods-k3s-fluent.conf
     #@include pods-fluent.conf
-    #@include file-fluent.conf
+    @include file-fluent.conf
     #@include elastic-fluent.conf
   pods-kind-fluent.conf: |-
     <source>
