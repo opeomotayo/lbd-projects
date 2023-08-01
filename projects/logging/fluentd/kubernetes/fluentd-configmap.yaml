@@ -54,8 +54,8 @@ data:
         #https://regex101.com/r/ZkOBTI/1
         <parse>
           @type regexp
-          expression /^(?<time>.+) (?<stream>stdout|stderr)( (?<logtag>.))? (?<log>.*)$/
-          time_format %Y-%m-%dT%H:%M:%S.%NZ
+          expression ^(?<time>.+) (?<stream>stdout|stderr)( (?<logtag>.))? (?<log>.*)$
+          #time_format %Y-%m-%dT%H:%M:%S.%NZ
         </parse>
     </source>
 
