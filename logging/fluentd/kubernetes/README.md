@@ -111,7 +111,7 @@ kubectl get pods
 ## Demo ElasticSearch and Kibana
 
 ```
-kubectl create ns elastic-kibana
+kubectl create ns elasticsearch-kibana
 
 # deploy elastic search
 kubectl -n elastic-kibana apply -f .\monitoring\logging\fluentd\kubernetes\elastic\elastic-demo.yaml
