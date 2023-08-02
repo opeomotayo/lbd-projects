@@ -15,18 +15,27 @@ spec:
       labels:
         app: elasticsearch
     spec:
+      initContainers:
+      - name: vm-max-fix
+        image: busybox
+        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+        securityContext:
+          privileged: true
       containers:
       - image: elasticsearch:7.9.1 #fix this 
         name: elasticsearch
+        magePullPolicy: IfNotPresent
         ports:
         - containerPort: 9200
-        - containerPort: 9300
-        volumeMounts:
-        - mountPath: /home/newuser/
-          name: my-volume
-      volumes:
-      - name: my-volume
-        emptyDir: {}  # I wouldnt use emptydir
+        env:
+        - name: node.name
+          value: "elasticsearch"
+        - name: cluster.initial_master_nodes
+          value: "elasticsearch"
+        - name: bootstrap.memory_lock
+          value: "false"
+        - name: ES_JAVA_OPTS
+          value: "-Xms512m -Xmx512m"
 ---
 apiVersion: v1
 kind: Service
