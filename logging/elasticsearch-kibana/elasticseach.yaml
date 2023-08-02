@@ -45,7 +45,7 @@ metadata:
   labels:
     app: elasticsearch
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: elasticsearch
   ports:
@@ -53,4 +53,3 @@ spec:
       name: http
       port: 9200
       targetPort: 9200
-      nodePort: 30015
