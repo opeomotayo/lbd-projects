@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: elasticsearch
-  namespace: elasticsearh-kibana
+  namespace: elasticsearch-kibana
   labels:
     app: elasticsearch
 spec:
