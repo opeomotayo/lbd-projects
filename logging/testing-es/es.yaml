@@ -1,0 +1,64 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+  namespace: elastic-system
+spec:
+  version: 8.9.0
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      # Comment out when setting the vm.max_map_count via initContainer, as these are mutually exclusive.
+      # For production workloads, it is strongly recommended to increase the kernel setting vm.max_map_count to 262144
+      # and leave node.store.allow_mmap unset.
+      # ref: https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-virtual-memory.html
+      node.roles: ["master", "data", "ingest", "ml", "transform", "remote_cluster_client"]
+      http.max_content_length: 300mb
+      cluster.routing.allocation.awareness.attributes: zone
+      node.store.allow_mmap: false
+    podTemplate:
+      metadata:
+        labels:
+          component: elasticsearch
+      # https://v1-24.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core
+      spec:
+      # Containers array.  Should only be used to customize the 'elasticsearch' container using the following fields.
+        containers:
+        - name: elasticsearch
+          volumeMounts:
+          - name: elasticsearch-data
+            mountPath: /usr/share/elasticsearch/data
+          # List of environment variables to set in the 'elasticsearch' container.
+          # https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
+          env:
+            - name: ES_JAVA_OPTS
+              value: -Xms2g -Xmx2g
+            - name: READINESS_PROBE_TIMEOUT
+              value: "10"
+            - name: PRE_STOP_ADDITIONAL_WAIT_SECONDS
+              value: "20"
+
+          # Compute Resources required by this container.
+          resources:
+            limits:
+              cpu: 500m
+              memory: 3500Mi
+            requests:
+              cpu: 200m
+              memory: 2500Mi
+
+          readinessProbe:
+            exec:
+              command:
+              - bash
+              - -c
+              - /mnt/elastic-internal/scripts/readiness-probe-script.sh
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 15
+        volumes:
+          - name: elasticsearch-data
+            emptyDir: {}
