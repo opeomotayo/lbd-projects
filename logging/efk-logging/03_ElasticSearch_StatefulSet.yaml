@@ -2,19 +2,17 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: elasticsearch-logging
-  namespace: efklog
+  name: elasticsearch
+  namespace: logging
   labels:
-    k8s-app: elasticsearch-logging
-    addonmanager.kubernetes.io/mode: Reconcile
+    app: elasticsearch
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: elasticsearch-logging
+  name: elasticsearch
   labels:
-    k8s-app: elasticsearch-logging
-    addonmanager.kubernetes.io/mode: Reconcile
+    app: elasticsearch
 rules:
 - apiGroups:
   - ""
@@ -28,48 +26,43 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: efklog
-  name: elasticsearch-logging
+  namespace: logging
+  name: elasticsearch
   labels:
-    k8s-app: elasticsearch-logging
-    addonmanager.kubernetes.io/mode: Reconcile
+    app: elasticsearch
 subjects:
 - kind: ServiceAccount
-  name: elasticsearch-logging
-  namespace: efklog
+  name: elasticsearch
+  namespace: logging
   apiGroup: ""
 roleRef:
   kind: ClusterRole
-  name: elasticsearch-logging
+  name: elasticsearch
   apiGroup: ""
 ---
 # Elasticsearch deployment itself
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: elasticsearch-logging
-  namespace: efklog
+  name: elasticsearch
+  namespace: logging
   labels:
-    k8s-app: elasticsearch-logging
-    version: v7.3.2
-    addonmanager.kubernetes.io/mode: Reconcile
+    app: elasticsearch
 spec:
-  serviceName: elasticsearch-logging
-  replicas: 2
+  serviceName: elasticsearch
+  replicas: 1
   selector:
     matchLabels:
-      k8s-app: elasticsearch-logging
-      version: v7.3.2
+      app: elasticsearch
   template:
     metadata:
       labels:
-        k8s-app: elasticsearch-logging
-        version: v7.3.2
+        app: elasticsearch
     spec:
-      serviceAccountName: elasticsearch-logging
+      serviceAccountName: elasticsearch
       containers:
       - image: quay.io/fluentd_elasticsearch/elasticsearch:v7.3.2
-        name: elasticsearch-logging
+        name: elasticsearch
         imagePullPolicy: Always
         resources:
           # need more cpu upon initialization, therefore burstable class
@@ -87,7 +80,7 @@ spec:
           name: transport
           protocol: TCP
         volumeMounts:
-        - name: elasticsearch-logging
+        - name: elasticsearch
           mountPath: /data
         env:
         - name: cluster.name
@@ -97,9 +90,9 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: discovery.seed_hosts
-          value: "elasticsearch-logging-0.elasticsearch-logging,elasticsearch-logging-1.elasticsearch-logging"
+          value: "elasticsearch-0.elasticsearch"
         - name: cluster.initial_master_nodes
-          value: "elasticsearch-logging-0,elasticsearch-logging-1"
+          value: "elasticsearch-0"
         - name: ES_JAVA_OPTS
           value: "-Xms512m -Xmx512m"
         - name: "NAMESPACE"
@@ -107,7 +100,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
       volumes:
-      - name: elasticsearch-logging
+      - name: elasticsearch
         emptyDir: {}
       # Elasticsearch requires vm.max_map_count to be at least 262144.
       # If your OS already sets up this number to a higher value, feel free
@@ -115,6 +108,6 @@ spec:
       initContainers:
       - image: alpine:3.6
         command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
-        name: elasticsearch-logging-init
+        name: elasticsearch-init
         securityContext:
           privileged: true
