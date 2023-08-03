@@ -15,4 +15,4 @@ spec:
     targetPort: db
   selector:
     k8s-app: elasticsearch-logging
-  type: LoadBalancer
+      #type: LoadBalancer

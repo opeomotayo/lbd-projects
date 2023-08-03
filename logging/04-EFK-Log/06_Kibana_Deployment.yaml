@@ -28,8 +28,8 @@ spec:
           requests:
             cpu: 100m
         env:
-          - name: ELASTICSEARCH_HOSTS
-            value: http://65.109.175.195:31695/
+          - name: ELASTICSEARCH_URL
+            value: http://elasticsearch-logging:9200
           - name: SERVER_NAME
             value: kibana-logging
          # - name: SERVER_BASEPATH
