@@ -22,13 +22,13 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: ZBX_SERVER_HOST
-              name: app
+              name: zabbix-config
 
         - name: ZBX_HOSTNAME
           valueFrom:
             configMapKeyRef:
               key: ZBX_HOSTNAME
-              name: app
+              name: zabbix-config
 
         image: zabbix/zabbix-agent:ubuntu-4.4.5
         name: zabbix-agent
