@@ -55,16 +55,16 @@ spec:
               key: ZBX_SERVER_NAME
               name: zabbix-app
         image: zabbix/zabbix-web-nginx-mysql:ubuntu-4.4-latest
-        livenessProbe:
-          exec:
-            command:
-            - curl
-            - -f
-            - http://localhost
-          failureThreshold: 3
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - curl
+        #     - -f
+        #     - http://localhost
+        #   failureThreshold: 3
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+        #   timeoutSeconds: 5
         name: zabbix-web-nginx-mysql
         ports:
         - containerPort: 80
