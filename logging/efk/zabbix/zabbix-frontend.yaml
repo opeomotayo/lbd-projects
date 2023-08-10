@@ -77,19 +77,17 @@ kind: Service
 metadata:
   namespace: logging
   annotations:
-  creationTimestamp: null
   labels:
     zabbix-app: zabbix-server
   name: zabbix-web-nginx-mysql
 spec:
+  type: LoadBalancer
   ports:
-  - name: "8081"
+  - name: "http"
     port: 8081
     targetPort: 80
-  - name: "8443"
+  - name: "https"
     port: 8443
     targetPort: 443
   selector:
     zabbix-app: zabbix-server
-status:
-  loadBalancer: {}
