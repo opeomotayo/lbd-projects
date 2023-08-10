@@ -3,18 +3,18 @@ kind: StatefulSet
 metadata:
   namespace: logging
   labels:
-    zabbix-app: zabbix-agent
+    app: zabbix-agent
   name: zabbix-agent
 spec:
   replicas: 1
   selector:
     matchLabels:
-     zabbix-app: zabbix-agent
+     app: zabbix-agent
   serviceName: "zabbix-agent"
   template:
     metadata:
       labels:
-        zabbix-app: zabbix-agent
+        app: zabbix-agent
     spec:   
       containers:
       - env:
@@ -22,13 +22,13 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: ZBX_SERVER_HOST
-              name: zabbix-app
+              name: app
 
         - name: ZBX_HOSTNAME
           valueFrom:
             configMapKeyRef:
               key: ZBX_HOSTNAME
-              name: zabbix-app
+              name: app
 
         image: zabbix/zabbix-agent:ubuntu-4.4.5
         name: zabbix-agent
@@ -54,7 +54,7 @@ kind: Service
 metadata:
   namespace: logging
   labels:
-    zabbix-app: zabbix-agent
+    app: zabbix-agent
   name: zabbix-agent
 spec:
   ports:
@@ -62,23 +62,56 @@ spec:
     port: 10050
     targetPort: 10050
   selector:
-    zabbix-app: zabbix-agent
+    app: zabbix-agent
 status:
   loadBalancer: {}
 
 ### PersistentVolumeClaim2
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   namespace: logging 
+#   labels:
+#      app: zabbix-agent
+#   name: zabbix-agent-claim
+# spec:
+#   accessModes:
+#   - ReadOnlyMany
+#   resources:
+#     requests:
+#       storage: 5Gi
+#   storageClassName: local-path
+
 ---
+kind: PersistentVolume
 apiVersion: v1
-kind: PersistentVolumeClaim
 metadata:
-  namespace: logging 
+  namespace: logging
+  name: zabbix-agent-volume
   labels:
-     zabbix-app: zabbix-agent
-  name: zabbix-agent-claim
+    type: local
+    app: zabbix-agent
 spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
   accessModes:
-  - ReadWriteOnce #ReadOnlyMany
+    - ReadWriteMany
+  hostPath:
+    path: /data/zabbix-agent
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: logging
+  name: zabbix-agent-claim
+  labels:
+    app: zabbix-agent
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
-  storageClassName: local-path
