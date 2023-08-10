@@ -39,13 +39,13 @@ spec:
           privileged: true
         volumeMounts:
         - mountPath: /etc/zabbix/zabbix_agentd.d
-          name: zabbix-agent-claim2
+          name: zabbix-agent-claim
           readOnly: true
       restartPolicy: Always
       volumes:
-      - name: zabbix-agent-claim2
+      - name: zabbix-agent-claim
         persistentVolumeClaim:
-          claimName: zabbix-agent-claim2
+          claimName: zabbix-agent-claim
           readOnly: true
 ### Service 
 ---
@@ -74,11 +74,11 @@ metadata:
   namespace: logging 
   labels:
      zabbix-app: zabbix-agent
-  name: zabbix-agent-claim2
+  name: zabbix-agent-claim
 spec:
   accessModes:
-  - ReadOnlyMany
+  - ReadWriteOnce #ReadOnlyMany
   resources:
     requests:
-      storage: 5Mi
-status: {}
+      storage: 5Gi
+  storageClassName: local-path
