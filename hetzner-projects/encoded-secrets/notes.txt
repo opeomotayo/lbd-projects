@@ -1,0 +1,15 @@
+Only github-oauth-client-secret.yaml is installed in jenkins namespace before install Jenkins (k apply -f github-oauth-client-secret.yaml)
+Others secrets were creates a encoded secrets first, then converted to encrypted secrets using:
+cat github-pat.yaml | kubeseal \         
+    --controller-namespace kube-system \
+    --controller-name sealed-secrets-controller \
+    --format yaml \
+    > sealed-secrets/github-pat.yaml
+
+then moved to cd-projects/technologies/charts/jenkins/templates/cred-sealed-secrets/ directoory and then applied (k apply -f dockerhub-creds.yaml)
+
+
+References:
+https://medium.com/codex/sealed-secrets-for-kubernetes-722d643eb658
+https://jenkinsci.github.io/kubernetes-credentials-provider-plugin/examples/
+

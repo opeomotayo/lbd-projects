@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jenkins-production
+  namespace: jenkins
+spec:
+  secretName: jenkins-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - jenkins.opeomotayo.net
+    
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jenkins-production
+  namespace: jenkins
+spec:
+  secretName: jenkins-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - jenkins.opeomotayo.net
+    

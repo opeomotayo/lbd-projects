@@ -1,0 +1,211 @@
+# credentials:
+#   system:
+#     domainCredentials:
+#     - credentials:
+#       - usernamePassword:
+#           description: "github-pwd"
+#           id: "github-pwd"
+#           password: "{AQAAABAAAAAQhYdt1NVqlXF10TsMHlCCZ51GnqH4Huj6p2W4Y9qZfuE=}"
+#           scope: GLOBAL
+#           username: "opeomotayo"
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  clouds:
+  - kubernetes:
+      containerCap: 10
+      containerCapStr: "10"
+      jenkinsTunnel: "jenkins-agent.jenkins.svc.cluster.local:50000"
+      jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+      name: "kubernetes"
+      namespace: "jenkins"
+      podLabels:
+      - key: "jenkins/jenkins-jenkins-agent"
+        value: "true"
+      serverUrl: "https://kubernetes.default"
+      templates:
+      - containers:
+        - args: "^${computer.jnlpmac} ^${computer.name}"
+          command: "sleep"
+          envVars:
+          - envVar:
+              key: "JENKINS_URL"
+              value: "http://jenkins.jenkins.svc.cluster.local:8080/"
+          image: "jenkins/inbound-agent:4.11.2-4"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          resourceLimitCpu: "512m"
+          resourceLimitMemory: "512Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          workingDir: "/home/jenkins/agent"
+        id: "474be7705ac6cddeedf68ad2962972dd9921f64c6e534967402794fbf06a21ec"
+        label: "jenkins-jenkins-agent"
+        name: "default"
+        namespace: "jenkins"
+        nodeUsageMode: "NORMAL"
+        podRetention: "never"
+        serviceAccount: "default"
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  disableRememberMe: false
+  labelAtoms:
+  - name: "built-in"
+  - name: "jenkins-jenkins-agent"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    github:
+      clientID: "637496041a683f8c01c3"
+      clientSecret: "${GITHUB_OAUTH_CLIENT_SECRET}"
+      githubApiUri: "https://api.github.com"
+      githubWebUri: "https://github.com"
+      oauthScopes: "read:org,user:email,repo"
+  # securityRealm:
+  #   local:
+  #     allowsSignup: false
+  #     users:
+  #      - id: admin
+  #        password: admin
+  #      - id: test
+  #        password: test
+  slaveAgentPort: 50000
+  systemMessage: "Welcome to my build server.\r\n\r\nThis Jenkins is 100% configured\
+    \ and managed 'as code'.\r\nConfig is now mostly handled by the 'Jenkins Configuration\
+    \ as Code' (JCasC) plugin."
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+
+unclassified:
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://jenkins.opeomotayo.net/github-webhook/" #"http://jenkins:8080/github-webhook/"
+  globalLibraries:
+    libraries:
+    - defaultVersion: "main"
+      name: "shared-library"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              credentialsId: "github-pwd"
+              id: "afedb203-f94a-4dce-a6b6-c52499e8a13a"
+              remote: "https://github.com/opeomotayo/cd-projects.git"
+              traits:
+              - "gitBranchDiscovery"
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "opeomotayo@gmail.com"
+    url: "https://jenkins.opeomotayo.net/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  scriptApproval:
+    approvedScriptHashes:
+    - "SHA512:5db4d3ca9bc4e7430ddab24d9ee16099f53cba4321f8ab81aa9f42510779ce79870314f2d1cc3d3769bedcb7283e23b01225e50e94b295dd5e03f879cf8f9264"
+    - "SHA512:e4cf9356a56e98f2db355e0bbc519af04a5de88a035415df22568cd257cbd59134248e343d0a7a5795ec01152d7c90b8bb92892db1100b0e6a3095bc34f45eda"
+    - "SHA512:ef1b5b21e0b4986ce6f500782560612c0ffb446fa015480aa013932374bc28e68eee53d391765932eea6a1db49a41b4ff6aeb4325af72dacd447f04ab354b4bd" 
+jobs:
+- script: >
+    job('seed') {
+      scm {
+        git {
+          extensions {
+            wipeOutWorkspace()
+          }
+          remote {
+            github('opeomotayo/ci-projects')
+          }
+          branches('main')
+        }
+      } 
+      triggers {
+        githubPush()
+      }
+      steps {
+        jobDsl {
+          targets('ci-pipelines/*.groovy')
+        }
+      }      
+    }
+tool:
+  git:
+    installations:
+    - home: "/usr/bin/git"
+      name: "git"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  sonarRunnerInstallation:
+    installations:
+    - name: "sonarqube"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "4.8.0.2856"
+
+

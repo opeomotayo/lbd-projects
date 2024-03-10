@@ -1,0 +1,15 @@
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "dockerhub-creds"
+  namespace: "jenkins"
+  labels:
+    "jenkins.io/credentials-type": "usernamePassword"
+  annotations:
+    "jenkins.io/credentials-description" : "credentials from Kubernetes"
+type: Opaque
+stringData:
+  username: "opeomotayo"
+  password: "Ayodeji79"
+

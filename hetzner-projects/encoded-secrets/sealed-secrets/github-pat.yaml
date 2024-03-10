@@ -1,0 +1,22 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: github-pat
+  namespace: jenkins
+spec:
+  encryptedData:
+    password: AgB39C/HPAAS19Z3rqnlH8yqvEcvtUkgGxx0r4CmNZ95MLOD2c7/+tS5iqlEo8KXVupAvLLrFcgjVSh8rWb8Y6lP4nTs+skT77ll8dF9O+uMESpS6oka3snU3MQNESMDhvgKe8t/x/R92C95KwpZ2UjSlApUlyHcrKvLYNS+bvBkCk/YgEHGm8Bj1SvVuF+Kh+lJ2Hoc/Y585dhmvdRulaHRoJqzObDNYMHj1vgIrwTUWyhp+VTnVVz7ZotQXU+hU8apyEQLsD88wACuXwijhtVY2C5UoqP6HY8Df56cTzbb3zPnPC8GmbP9v5oyBdShYyW1BNkQ9H3ZsXbCeFBKVyF9r/m4K4evPXqMe1ak6NjdslgfUXXKEJRY0ZH6MtB8Gk75I2hNvW1bdagkv/HmIOhO31iD3HsggCRwuZhyyz/pOghyuPEhtwYN5jpQ2eApvBP2UKHwcaCPywS6CegVkCrM0B+o3bHQ7esRByRGvxVTGB0Lbu18ZlcbJgCqJ34DzA9CgU2KtvhK4YEeQx+M/7qDIOZPCZWUJXwk/uHaDqCf8RPcikU4cmYDrWBaLMGVVNIYnmXUODtxLcXFxRDWdLapT0kxHOQi5q90TnQHaoFzOtErmnAUO6v1p3FOgGgisJ7rTJoUhI14tCccV1hHnFyBY08TcDtQWnaaCPB11e/zWJ9thsxPWbznVwqy5KG+Ds2Cl4vkBUstDM6Aj93S2iCH2px2nFzo/VfqoPO7+MZgYWWEm+h3orfd
+    username: AgBcZ/IKj6Snrs9wimx33bYUf1nPH+H0dP3VoUb5tI9Og0DfD+YSTyqopI/rrsBwrlZ9EMKFAf2NiYrVxTdPR+pa+kcB8OuW1XcIvwwMg/kaRKur79duJ9jWhSwb3auhISNjKKUbWzeJii41doApL3nU3WcszTy6mO1vedGFPxv2aULgtRVfAMR2tFICrpDTQVwPkpIznkzo9DMKGICVclA1+6+6nyorlkb0qqy99wn+cDz4q+xSuHJo/righmQQFQZ6Cu1A5cfFuyLX/ODP4sL09R/LGsSGJXtYVGfNVUPSKz3HcIaI8+Td+aGnUCyBUVFzBipZgIopS+ddkql1e6LTbtUBbJIt3DMzVd0+ZnlNI5Ddl7ZHXU9v2aOk7TBO6RRI61OTQ+9OH84LCTnxNvCOXDIGN5pIuEyHUCfa5rW6iz1EDHHxYoxUrslFOIKXXWY/R+eoNqAdu8so8rcgEbd+hJ0HERM519RrMDATrJBk3BGOhZXiYGJzWnlw2qQJtACihq3evsTNvdFF2yQvjXZqzU/LNmASb0tipSmCnZ1WajKsjLydltrZoGNwDlx616QSTMjfSwBwEvWwP4GGB4+Brad3h8i/apgXetIEYZSCBln9RfttvSCi39rADql8ztYvIqVoCswzV9Nq5jSUu3rgeoYNa8cPPIAObXvH5nXE+OUr5etjBPSSkYtpW+I0f3KNKnWLzKa7hoN/
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: github-pat credentials from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: usernamePassword
+      name: github-pat
+      namespace: jenkins
+    type: Opaque
+

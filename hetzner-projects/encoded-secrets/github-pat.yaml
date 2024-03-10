@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "github-pat"
+  namespace: jenkins
+  labels:
+    "jenkins.io/credentials-type": "usernamePassword"
+  annotations:
+    "jenkins.io/credentials-description": "github-pat credentials from Kubernetes"
+type: Opaque
+stringData:
+  username: opeomotayo
+  password: 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
+
